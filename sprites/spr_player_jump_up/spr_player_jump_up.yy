@@ -19,8 +19,8 @@
   "frames":[
     {"$GMSpriteFrame":"v1","%Name":"e0aefa89-8806-44dc-acd6-31db2578cd65","name":"e0aefa89-8806-44dc-acd6-31db2578cd65","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
-  "gridX":0,
-  "gridY":0,
+  "gridX":12,
+  "gridY":12,
   "height":24,
   "HTile":false,
   "layers":[
@@ -30,8 +30,8 @@
   "nineSlice":null,
   "origin":7,
   "parent":{
-    "name":"Sprites",
-    "path":"folders/Sprites.yy",
+    "name":"jump",
+    "path":"folders/Sprites/player/jump.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

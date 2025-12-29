@@ -1,3 +1,6 @@
+//Iniciando funcoes
+inicia_efeito_squash();
+
 #region variáveis
 
 //Variaveis de movimentação
@@ -5,8 +8,10 @@ hspd     = 0;
 max_hspd = 2;
 
 vspd     = 0;
-max_vspd = 5;
+max_vspd = 4;
 grav     = 0.2;
+
+dir = 1;
 
 //Variaveis de level
 chao = false;
@@ -15,6 +20,7 @@ chao = false;
 right = false;
 left  = false;
 jump  = false;
+paint = false;
 
 //Variaveis dos estados
 estado = noone;
@@ -23,12 +29,15 @@ estado = noone;
 
 #region métodos
 
+ajusta_escala = function () {
+    if(hspd != 0) dir = sign(hspd);
+}
 pega_input = function (){
    right = keyboard_check(ord("D"));
    left  = keyboard_check(ord("A"));
    jump  = keyboard_check_pressed(vk_space);
+   paint = keyboard_check(ord("E"));
 }
-
 troca_sprite = function (_sprite = spr_colisao) {
     //Verificando se a sprite é diferente
     if (sprite_index != _sprite) {
@@ -37,6 +46,16 @@ troca_sprite = function (_sprite = spr_colisao) {
         
         //Zerando a animação
         image_index = 0;
+    }
+}
+acabou_animacao = function (){
+    //Criando variavel para descobrir a velocidade da sprite
+    var _spd = sprite_get_speed(sprite_index) / FPS;
+    
+    //Verificando se a animação terminou para trocar o sprite
+    if (image_index + _spd >= image_number) { 
+        
+    	return true
     }
 }
 
@@ -49,22 +68,25 @@ movimento = function () {
     move_and_collide(hspd, vspd, obj_colisao, 4);
 }
 aplica_velocidade = function (){
+    //Checando se eu estou no chão
+    checa_chao();
+    
     //Aplicando as inputs no hspd
     hspd = (right - left) * max_hspd;
     
     //Aplicando a gravidade
     if (!chao) {
-        vspd += grav
+        vspd += grav;
     }
     else {
-    	vspd = 0
+    	vspd = 0;
         
         //Arredondando a posição Y
-        y = round(y)
+        y = round(y);
         
         //Verificando se eu posso pular e pulando
         if (jump && chao) {
-    	   vspd -= max_vspd
+    	   vspd -= max_vspd;
         }
     }
 }
@@ -75,6 +97,10 @@ checa_chao = function (){
 
 //Métodos dos estados
 estado_parado = function () {
+    hspd = 0;
+    vspd = 0;
+    aplica_velocidade();
+    
     //Definindo a sprite
     troca_sprite(spr_player_idle);
     
@@ -88,10 +114,20 @@ estado_parado = function () {
     if (jump) {
         //Trocando o estado do player
     	estado = estado_pulando;
+        
+        //Criando o efeito da particula em uma profundidade 
+        instance_create_depth(x,y,depth - 1,obj_pulo_particula);
+        
+        //Aplicando o efeito de mola
+        efeito_squash(.5, 2);
     }
     
     if (!chao) {
     	estado = estado_pulando;
+    }
+    
+    if (paint) {
+    	estado = estado_tinta_entrar;
     }
 }
 estado_movendo = function () {
@@ -109,6 +145,8 @@ estado_movendo = function () {
     if (jump) {
         //Trocando o estado do player
     	estado = estado_pulando;
+        
+        instance_create_depth(x,y,depth - 1,obj_pulo_particula);
     }
 }
 estado_pulando = function () { 
@@ -126,23 +164,66 @@ estado_pulando = function () {
     if (chao) {
         //Trocando de estado
     	estado = estado_parado;
+        
+        //Criando o efeito da particula em uma profundidade 
+        instance_create_depth(x,y,depth - 1,obj_pouso_particula);
+        
+        //Aplicando o efeito de mola
+        efeito_squash(1.5,.5)
     }
 }
 estado_powerup_inicio = function () {
     troca_sprite(spr_player_powerup_start)
     
-    if (image_index >= image_number) {
+    //Verificando se a animação terminou para trocar o sprite
+    if (acabou_animacao()) {
     	estado = estado_powerup_meio;
     }
 }
 estado_powerup_meio = function () {
     troca_sprite(spr_player_powerup_middle)
+    
+    //Verificando se a animação terminou para trocar o sprite
+    if (acabou_animacao()) { 
+    	estado = estado_powerup_fim;
+    }
 }
 estado_powerup_fim = function () {
     troca_sprite(spr_player_powerup_end)
+    
+    //Verificando se a animação terminou para trocar o sprite
+    if (acabou_animacao()) {
+    	estado = estado_parado;
+    }
 }
-
-
+estado_tinta_entrar = function () {
+    troca_sprite(spr_player_tinta_entrar)
+    
+    if(acabou_animacao()){
+        
+        estado = estado_tinta_loop;
+    }
+}
+estado_tinta_sair = function () {
+    troca_sprite(spr_player_tinta_sair)
+    
+    if(acabou_animacao()){
+        estado = estado_parado;
+    }
+}
+estado_tinta_loop = function () {
+    aplica_velocidade();
+    
+   troca_sprite(spr_player_tinta_loop);
+    
+    if(paint){
+        estado = estado_tinta_sair;
+    }
+    if(jump){
+        vspd = 0;
+        estado = estado_tinta_sair;
+    }
+}
 
 #endregion
 
@@ -188,4 +269,4 @@ ativa_debug = function () {
 
 #endregion
 
-estado = estado_powerup_inicio;
+estado = estado_parado;

@@ -23,8 +23,8 @@
     {"$GMSpriteFrame":"v1","%Name":"29a23a89-3688-4820-8316-be94b0939db2","name":"29a23a89-3688-4820-8316-be94b0939db2","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
     {"$GMSpriteFrame":"v1","%Name":"af9c1bb1-91b9-4724-9ae7-36a25d43cb0f","name":"af9c1bb1-91b9-4724-9ae7-36a25d43cb0f","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
-  "gridX":0,
-  "gridY":0,
+  "gridX":12,
+  "gridY":12,
   "height":24,
   "HTile":false,
   "layers":[
@@ -34,8 +34,8 @@
   "nineSlice":null,
   "origin":7,
   "parent":{
-    "name":"Sprites",
-    "path":"folders/Sprites.yy",
+    "name":"power_up",
+    "path":"folders/Sprites/player/power_up.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

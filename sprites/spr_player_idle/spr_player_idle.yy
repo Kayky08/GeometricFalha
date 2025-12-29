@@ -14,8 +14,8 @@
   "frames":[
     {"$GMSpriteFrame":"v1","%Name":"e0aefa89-8806-44dc-acd6-31db2578cd65","name":"e0aefa89-8806-44dc-acd6-31db2578cd65","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
-  "gridX":0,
-  "gridY":0,
+  "gridX":2,
+  "gridY":2,
   "height":24,
   "HTile":false,
   "layers":[
@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":7,
   "parent":{
-    "name":"Sprites",
-    "path":"folders/Sprites.yy",
+    "name":"idle",
+    "path":"folders/Sprites/player/idle.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",
