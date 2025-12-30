@@ -127,7 +127,7 @@ estado_parado = function () {
     }
     
     if (paint) {
-    	estado = estado_tinta_entrar;
+    	estado = estado_tinta_entrar; 
     }
 }
 estado_movendo = function () {
@@ -197,10 +197,14 @@ estado_powerup_fim = function () {
     }
 }
 estado_tinta_entrar = function () {
+    hspd = 0;
     troca_sprite(spr_player_tinta_entrar)
     
+    if(!instance_exists(obj_tinta_entrar_particula)){
+        instance_create_depth(x,y,depth - 1, obj_tinta_entrar_particula);
+    }
+    
     if(acabou_animacao()){
-        
         estado = estado_tinta_loop;
     }
 }
@@ -208,20 +212,32 @@ estado_tinta_sair = function () {
     troca_sprite(spr_player_tinta_sair)
     
     if(acabou_animacao()){
+        
         estado = estado_parado;
     }
 }
 estado_tinta_loop = function () {
     aplica_velocidade();
     
-   troca_sprite(spr_player_tinta_loop);
+    troca_sprite(spr_player_tinta_loop);
+    
+    var _parar = !place_meeting(x + (hspd * 12), y + 1,obj_colisao)
+    
+    if(_parar){
+        hspd = 0
+    }
     
     if(paint){
+        hspd = 0;
+        vspd = 0;
+        instance_create_depth(x,y,depth - 1, obj_tinta_sair_particula);
         estado = estado_tinta_sair;
     }
     if(jump){
         vspd = 0;
-        estado = estado_tinta_sair;
+        hspd = 0;
+        instance_create_depth(x,y,depth - 1, obj_tinta_sair_particula);
+        estado = estado_tinta_sair; 
     }
 }
 
