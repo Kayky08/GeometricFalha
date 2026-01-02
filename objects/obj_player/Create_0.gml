@@ -25,6 +25,10 @@ paint = false;
 //Variaveis dos estados
 estado = noone;
 
+//Objetos de colisão
+var _layer = layer_tilemap_get_id("Tileset")
+colisoes = [obj_colisao,_layer]
+
 #endregion
 
 #region métodos
@@ -62,10 +66,10 @@ acabou_animacao = function (){
 //Metodo de movimentação
 movimento = function () {
     //Usando o move and collide vertical
-    move_and_collide(0, vspd, obj_colisao, 12);
+    move_and_collide(0, vspd, colisoes, 12);
     
     //Usando o move and collide horizontal
-    move_and_collide(hspd, vspd, obj_colisao, 4);
+    move_and_collide(hspd, vspd, colisoes, 4);
 }
 aplica_velocidade = function (){
     //Checando se eu estou no chão
@@ -89,10 +93,13 @@ aplica_velocidade = function (){
     	   vspd -= max_vspd;
         }
     }
+    
+    //Limitando a velocidade vertical do player
+    vspd = clamp(vspd, -max_vspd, max_vspd);
 }
 checa_chao = function (){
     //Verifcando se a mascara de colisão esta tocando o chão
-    chao = place_meeting(x, y + 1, obj_colisao)
+    chao = place_meeting(x, y + 1, colisoes)
 }
 
 //Métodos dos estados
@@ -147,6 +154,14 @@ estado_movendo = function () {
     	estado = estado_pulando;
         
         instance_create_depth(x,y,depth - 1,obj_pulo_particula);
+    }
+    
+    if (!chao) {
+    	estado = estado_pulando;
+    }
+    
+    if (paint) {
+    	estado = estado_tinta_entrar; 
     }
 }
 estado_pulando = function () { 
@@ -221,7 +236,7 @@ estado_tinta_loop = function () {
     
     troca_sprite(spr_player_tinta_loop);
     
-    var _parar = !place_meeting(x + (hspd * 12), y + 1,obj_colisao)
+    var _parar = !place_meeting(x + (hspd * 12), y + 1,colisoes)
     
     if(_parar){
         hspd = 0

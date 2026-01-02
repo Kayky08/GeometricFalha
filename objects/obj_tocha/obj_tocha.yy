@@ -1,13 +1,16 @@
 {
   "$GMObject":"",
-  "%Name":"obj_colisao",
-  "eventList":[],
+  "%Name":"obj_tocha",
+  "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+  ],
   "managed":true,
-  "name":"obj_colisao",
+  "name":"obj_tocha",
   "overriddenProperties":[],
   "parent":{
-    "name":"level",
-    "path":"folders/Objects/level.yy",
+    "name":"decoracao",
+    "path":"folders/Objects/level/decoracao.yy",
   },
   "parentObjectId":null,
   "persistent":false,
@@ -28,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_colisao",
-    "path":"sprites/spr_colisao/spr_colisao.yy",
+    "name":"spr_iluminacao",
+    "path":"sprites/spr_iluminacao/spr_iluminacao.yy",
   },
   "spriteMaskId":null,
   "visible":true,

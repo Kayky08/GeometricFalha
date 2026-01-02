@@ -1,15 +1,18 @@
 {
   "$GMObject":"",
-  "%Name":"obj_colisao",
+  "%Name":"obj_cavalete",
   "eventList":[],
   "managed":true,
-  "name":"obj_colisao",
+  "name":"obj_cavalete",
   "overriddenProperties":[],
   "parent":{
     "name":"level",
     "path":"folders/Objects/level.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"obj_colisao",
+    "path":"objects/obj_colisao/obj_colisao.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -28,8 +31,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_colisao",
-    "path":"sprites/spr_colisao/spr_colisao.yy",
+    "name":"spr_cavalete",
+    "path":"sprites/spr_cavalete/spr_cavalete.yy",
   },
   "spriteMaskId":null,
   "visible":true,

@@ -1,6 +1,11 @@
 {
   "$GMMainOptions":"v5",
   "%Name":"Main",
+  "ConfigValues":{
+    "modo_debug":{
+      "option_remove_unused_assets":"false",
+    },
+  },
   "name":"Main",
   "option_allow_instance_change":false,
   "option_audio_error_behaviour":false,

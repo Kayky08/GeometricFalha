@@ -1,9 +1,9 @@
 {
   "$GMObject":"",
-  "%Name":"obj_colisao",
+  "%Name":"obj_plataforma_pequena",
   "eventList":[],
   "managed":true,
-  "name":"obj_colisao",
+  "name":"obj_plataforma_pequena",
   "overriddenProperties":[],
   "parent":{
     "name":"level",
@@ -28,8 +28,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_colisao",
-    "path":"sprites/spr_colisao/spr_colisao.yy",
+    "name":"spr_plataforma_pequena",
+    "path":"sprites/spr_plataforma_pequena/spr_plataforma_pequena.yy",
   },
   "spriteMaskId":null,
   "visible":true,
